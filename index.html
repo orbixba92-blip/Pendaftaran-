@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Orbix Community Registration</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(135deg,#0a0f1f,#fff,#0b3c8a)}
+marquee{background:#000;color:#fff;padding:10px;font-weight:bold}
+.container{max-width:900px;margin:20px auto;background:#fff;padding:20px;border-radius:10px}
+h2{text-align:center;color:#0b3c8a}
+input,button{padding:10px;margin:8px 0}
+input[type="text"]{width:100%}
+button{width:100%;background:#0b3c8a;color:#fff;border:none;cursor:pointer}
+.section{margin-top:10px}
+.question{margin:15px 0;padding:10px;border:1px solid #ddd;border-radius:5px}
+#certificate{display:none;margin-top:30px;padding:30px;background:#fff;border:6px solid gold;border-radius:15px;text-align:center}
+.cert-title{font-size:28px;font-weight:bold;color:#0b3c8a}
+.gold-line{height:4px;background:linear-gradient(to right,gold,#fff,gold);margin:15px 0}
+.ttd{display:flex;justify-content:space-between;margin-top:40px}
+.ttd div{width:45%;border-top:2px solid #000;padding-top:5px;font-weight:bold}
+#qr{margin-top:20px}
+footer{margin-top:40px;text-align:center;color:#555}
+.skill-box label{display:inline-block;margin-right:10px}
+</style>
+</head>
+<body>
+
+<marquee>PENDAFTARAN ORBIX COMMUNITY ID-PH • OFFICIAL MEMBER REGISTRATION</marquee>
+
+<div class="container">
+<h2>Form Pendaftaran Orbix Community</h2>
+
+<div id="formSection">
+  <input id="nama" type="text" placeholder="Nama Lengkap">
+  <input id="umur" type="text" placeholder="Umur">
+  <input id="asal" type="text" placeholder="Asal Daerah">
+
+  <div class="section">
+    <b>Kamu bisa program apa saja? (boleh pilih lebih dari satu)</b>
+    <div class="skill-box">
+      <label><input type="checkbox" value="HTML"> HTML</label>
+      <label><input type="checkbox" value="CSS"> CSS</label>
+      <label><input type="checkbox" value="JavaScript"> JavaScript</label>
+      <label><input type="checkbox" value="Node.js"> Node.js</label>
+      <label><input type="checkbox" value="PHP"> PHP</label>
+      <label><input type="checkbox" value="Python"> Python</label>
+      <label><input type="checkbox" value="Java"> Java</label>
+      <label><input type="checkbox" value="C/C++"> C / C++</label>
+      <label><input type="checkbox" value="SQL"> SQL / Database</label>
+      <label><input type="checkbox" value="Networking"> Networking</label>
+      <label><input type="checkbox" value="Git"> Git & GitHub</label>
+      <label><input type="checkbox" value="Masih belajar"> Masih belajar</label>
+    </div>
+  </div>
+
+  <button id="startBtn">Mulai Ujian</button>
+</div>
+
+<div id="quizSection" style="display:none;"></div>
+<button id="submitBtn" style="display:none;">Submit Jawaban</button>
+
+<div id="certificate">
+  <div class="cert-title">SERTIFIKAT KELULUSAN</div>
+  <div class="gold-line"></div>
+  <p>Menyatakan bahwa:</p>
+  <h3 id="certName"></h3>
+  <p>Telah dinyatakan <b>LULUS</b> sebagai</p>
+  <h3>Anggota Resmi Orbix Community</h3>
+
+  <p><b>Skill:</b> <span id="certSkills"></span></p>
+
+  <div id="qr"><img id="qrImg" alt="QR Sertifikat"></div>
+
+  <p style="margin-top:20px;font-weight:bold">Gabung Grup Resmi Orbix Community:</p>
+  <a href="https://chat.whatsapp.com/GQB6ePOLNOSKkxd9WyuqGD" target="_blank">
+    👉 Klik di sini untuk join WhatsApp Group
+  </a>
+
+  <div class="ttd">
+    <div>TTD OWNER<br>Orbix Official</div>
+    <div>TTD ADMIN<br>Orbix Community</div>
+  </div>
+</div>
+
+<footer>© Orbix Official</footer>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded",()=>{
+const questions=[
+ {q:"Fungsi utama HTML adalah?",o:["Logika","Struktur","Database","Server"],a:1},
+ {q:"CSS digunakan untuk?",o:["Struktur","Logika","Tampilan","Database"],a:2},
+ {q:"JavaScript berjalan di?",o:["Server","Browser","Database","Compiler"],a:1},
+ {q:"Node.js berbasis?",o:["Python","PHP","Java","JavaScript"],a:3},
+ {q:"IP Address berfungsi sebagai?",o:["Nama file","Alamat jaringan","Password","Domain"],a:1},
+ {q:"Git digunakan untuk?",o:["Desain","Version control","Hosting","Database"],a:1},
+ {q:"Database berfungsi untuk?",o:["Tampilan","Penyimpanan data","Logika","Routing"],a:1},
+ {q:"PHP biasanya digunakan di sisi?",o:["Client","Frontend","Backend","Design"],a:2},
+ {q:"CPU kepanjangan dari?",o:["Central Process Unit","Computer Power Unit","Central Processing Unit","Core Power Unit"],a:2},
+ {q:"Framework digunakan untuk?",o:["Mempercepat development","Main game","Hack","Virus"],a:0}
+];
+
+const quizSection=document.getElementById("quizSection");
+const shuffled=questions.sort(()=>0.5-Math.random());
+
+startBtn.onclick=()=>{
+ if(!nama.value||!umur.value||!asal.value){
+  alert("Lengkapi identitas!"); return;
+ }
+ const skills=[...document.querySelectorAll('.skill-box input:checked')].map(s=>s.value);
+ if(skills.length===0){ alert("Pilih minimal 1 skill!"); return; }
+
+ formSection.style.display="none";
+ quizSection.style.display="block";
+ submitBtn.style.display="block";
+
+ shuffled.forEach((q,i)=>{
+  const d=document.createElement("div");
+  d.className="question";
+  const t=document.createElement("b");
+  t.textContent=(i+1)+". "+q.q;
+  d.appendChild(t);
+  q.o.forEach((opt,idx)=>{
+    const lbl=document.createElement("label");
+    lbl.style.display="block";
+    const r=document.createElement("input");
+    r.type="radio"; r.name="q"+i; r.value=idx;
+    lbl.appendChild(r); lbl.append(" "+opt);
+    d.appendChild(lbl);
+  });
+  quizSection.appendChild(d);
+ });
+};
+
+submitBtn.onclick=()=>{
+ let score=0;
+ shuffled.forEach((q,i)=>{
+  const sel=document.querySelector(`input[name="q${i}"]:checked`);
+  if(sel && parseInt(sel.value)===q.a) score++;
+ });
+ if(score>=2){
+  certName.textContent=nama.value;
+  const skills=[...document.querySelectorAll('.skill-box input:checked')].map(s=>s.value).join(", ");
+  certSkills.textContent=skills;
+  qrImg.src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data="+
+    encodeURIComponent(`Orbix Community | ${nama.value} | LULUS | ${skills}`);
+  certificate.style.display="block";
+  window.scrollTo(0,document.body.scrollHeight);
+ }else alert("Belum lulus. Minimal 2 jawaban benar.");
+};
+});
+</script>
+</body>
+</html>
