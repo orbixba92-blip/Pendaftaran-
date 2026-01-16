@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pendaftaran Σpsilon - Tes Masuk</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary-red: #e63946;
+            --primary-white: #ffffff;
+            --primary-black: #121212;
+            --secondary-red: #a4161a;
+            --dark-gray: #333333;
+            --light-gray: #f5f5f5;
+            --accent: #ffd166;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --whatsapp: #25D366;
+        }
+        
+        body {
+            background-color: var(--primary-black);
+            color: var(--primary-white);
+            line-height: 1.6;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(230, 57, 70, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(230, 57, 70, 0.1) 0%, transparent 20%);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background-color: rgba(18, 18, 18, 0.95);
+            padding: 1.5rem 0;
+            border-bottom: 3px solid var(--primary-red);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 2rem;
+            font-weight: 900;
+        }
+        
+        .logo-symbol {
+            color: var(--primary-red);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .logo-text {
+            color: var(--primary-white);
+        }
+        
+        /* Registration Container */
+        .registration-container {
+            display: flex;
+            min-height: calc(100vh - 120px);
+            align-items: center;
+            padding: 3rem 0;
+        }
+        
+        /* Form Section */
+        .form-section, .test-section, .result-section {
+            background-color: rgba(30, 30, 30, 0.9);
+            border-radius: 15px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(230, 57, 70, 0.3);
+            width: 100%;
+            display: none;
+        }
+        
+        .form-section.active, .test-section.active, .result-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary-white);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 4px;
+            background-color: var(--primary-red);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            color: #aaa;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+        
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.8rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--primary-white);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: var(--primary-white);
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-red);
+            box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.2);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+        
+        .radio-option input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary-red);
+        }
+        
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+        
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+        
+        .checkbox-option input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary-red);
+        }
+        
+        /* Test Section */
+        .test-info {
+            background-color: rgba(230, 57, 70, 0.1);
+            border-left: 4px solid var(--primary-red);
+            padding: 1rem 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .test-info p {
+            margin-bottom: 0.5rem;
+            color: #ddd;
+        }
+        
+        .test-info strong {
+            color: var(--primary-red);
+        }
+        
+        .timer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background-color: rgba(18, 18, 18, 0.8);
+            padding: 10px 20px;
+            border-radius: 50px;
+            margin-bottom: 2rem;
+            border: 2px solid var(--primary-red);
+            font-weight: bold;
+            font-size: 1.2rem;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .timer.warning {
+            color: var(--warning);
+            border-color: var(--warning);
+        }
+        
+        .timer.danger {
+            color: var(--primary-red);
+            border-color: var(--primary-red);
+            animation: pulse 1s infinite;
+        }
+        
+        .question-counter {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #aaa;
+            font-size: 1.1rem;
+        }
+        
+        .question-counter span {
+            color: var(--primary-red);
+            font-weight: bold;
+        }
+        
+        /* Question Card */
+        .question-card {
+            background-color: rgba(40, 40, 40, 0.8);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .question-card:hover {
+            border-color: var(--primary-red);
+            box-shadow: 0 5px 15px rgba(230, 57, 70, 0.1);
+        }
+        
+        .question-number {
+            display: inline-block;
+            background-color: var(--primary-red);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 35px;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .question-text {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-white);
+        }
+        
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .option {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+        
+        .option:hover {
+            background-color: rgba(230, 57, 70, 0.1);
+            border-color: rgba(230, 57, 70, 0.3);
+        }
+        
+        .option.selected {
+            background-color: rgba(230, 57, 70, 0.15);
+            border-color: var(--primary-red);
+        }
+        
+        .option input[type="radio"] {
+            margin-top: 3px;
+            accent-color: var(--primary-red);
+        }
+        
+        .option-label {
+            font-weight: bold;
+            color: var(--accent);
+            min-width: 30px;
+        }
+        
+        /* Result Section */
+        .result-content {
+            text-align: center;
+        }
+        
+        .score-display {
+            font-size: 5rem;
+            font-weight: 900;
+            color: var(--primary-red);
+            margin: 1.5rem 0;
+            text-shadow: 0 0 20px rgba(230, 57, 70, 0.5);
+        }
+        
+        .result-message {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            color: #ddd;
+        }
+        
+        .result-details {
+            background-color: rgba(40, 40, 40, 0.8);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-top: 2rem;
+            text-align: left;
+        }
+        
+        .result-details h3 {
+            color: var(--primary-white);
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--primary-red);
+            padding-bottom: 10px;
+        }
+        
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+        
+        .detail-label {
+            color: #aaa;
+        }
+        
+        .detail-value {
+            color: var(--primary-white);
+            font-weight: 600;
+        }
+        
+        /* WhatsApp & Certificate Section */
+        .whatsapp-certificate-section {
+            background: linear-gradient(135deg, rgba(37, 211, 102, 0.1), rgba(230, 57, 70, 0.1));
+            border-radius: 15px;
+            padding: 2.5rem;
+            margin-top: 2.5rem;
+            border: 2px solid var(--whatsapp);
+            text-align: center;
+        }
+        
+        .whatsapp-certificate-section h3 {
+            color: var(--primary-white);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .whatsapp-certificate-section h3 i {
+            color: var(--whatsapp);
+            margin-right: 10px;
+        }
+        
+        .whatsapp-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background-color: var(--whatsapp);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin: 1rem 0;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+        }
+        
+        .whatsapp-link:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.4);
+        }
+        
+        .certificate-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .certificate-icon {
+            font-size: 3rem;
+            color: var(--accent);
+        }
+        
+        .certificate-text {
+            text-align: left;
+        }
+        
+        .certificate-text h4 {
+            color: var(--accent);
+            margin-bottom: 5px;
+        }
+        
+        /* Buttons */
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2.5rem;
+        }
+        
+        .btn {
+            padding: 14px 28px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-red);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-red);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(230, 57, 70, 0.3);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary-white);
+            border: 2px solid var(--primary-white);
+        }
+        
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background-color: #3d8b40;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+        }
+        
+        .btn-whatsapp {
+            background-color: var(--whatsapp);
+            color: white;
+        }
+        
+        .btn-whatsapp:hover {
+            background-color: #1da851;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+        }
+        
+        .btn-full {
+            width: 100%;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .form-section, .test-section, .result-section {
+                padding: 1.8rem;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            .whatsapp-certificate-section {
+                padding: 1.8rem;
+            }
+            
+            .score-display {
+                font-size: 4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <div class="logo-symbol">Σ</div>
+                <div class="logo-text">PSILON RECRUITMENT</div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Registration Container -->
+    <div class="registration-container">
+        <div class="container">
+            <!-- Form Section -->
+            <div class="form-section active" id="formSection">
+                <div class="section-title">
+                    <h2>Pendaftaran Σpsilon</h2>
+                </div>
+                
+                <div class="section-subtitle">
+                    <p>Isi formulir pendaftaran untuk mengikuti tes masuk sebagai Programmer, Cyber Security, atau bidang terkait di Σpsilon Official.</p>
+                </div>
+                
+                <form id="registrationForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fullName">Nama Lengkap</label>
+                            <input type="text" id="fullName" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="whatsapp">Nomor WhatsApp</label>
+                            <input type="tel" id="whatsapp" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="education">Pendidikan Terakhir</label>
+                            <select id="education" class="form-control" required>
+                                <option value="">Pilih pendidikan</option>
+                                <option value="SMA/SMK">SMA/SMK</option>
+                                <option value="Diploma">Diploma</option>
+                                <option value="Sarjana (S1)">Sarjana (S1)</option>
+                                <option value="Magister (S2)">Magister (S2)</option>
+                                <option value="Lainnya">Lainnya</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Bidang yang Diminati</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="programmer" name="field" value="Programmer" required>
+                                <label for="programmer">Programmer</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="cyberSecurity" name="field" value="Cyber Security">
+                                <label for="cyberSecurity">Cyber Security</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="webDev" name="field" value="Web Developer">
+                                <label for="webDev">Web Developer</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="frontend" name="field" value="Frontend Developer">
+                                <label for="frontend">Frontend Developer</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="backend" name="field" value="Backend Developer">
+                                <label for="backend">Backend Developer</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="mobileDev" name="field" value="Mobile Developer">
+                                <label for="mobileDev">Mobile Developer</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="experience">Pengalaman (jika ada)</label>
+                        <textarea id="experience" class="form-control" rows="4" placeholder="Ceritakan pengalaman Anda di bidang yang diminati..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="motivation">Motivasi Bergabung</label>
+                        <textarea id="motivation" class="form-control" rows="4" required placeholder="Mengapa Anda ingin bergabung dengan Σpsilon?"></textarea>
+                    </div>
+                    
+                    <div class="btn-container">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-arrow-right"></i> Lanjut ke Tes
+                        </button>
+                    </div>
+                </form>
+            </div>
+            
+            <!-- Test Section -->
+            <div class="test-section" id="testSection">
+                <div class="section-title">
+                    <h2>Tes Masuk Σpsilon</h2>
+                </div>
+                
+                <div class="test-info">
+                    <p><strong>Instruksi:</strong></p>
+                    <p>• Tes ini terdiri dari 10 soal pilihan ganda.</p>
+                    <p>• Waktu yang diberikan: 15 menit (900 detik).</p>
+                    <p>• Pilih satu jawaban yang paling benar untuk setiap soal.</p>
+                    <p>• Skor minimal untuk lulus: 70 dari 100.</p>
+                </div>
+                
+                <div class="timer" id="timer">
+                    <i class="fas fa-clock"></i>
+                    <span id="timeRemaining">15:00</span>
+                </div>
+                
+                <div class="question-counter">
+                    Soal: <span id="currentQuestion">1</span> dari 10
+                </div>
+                
+                <div id="questionsContainer">
+                    <!-- Questions will be loaded here -->
+                </div>
+                
+                <div class="btn-container">
+                    <button type="button" class="btn btn-secondary" id="prevBtn">
+                        <i class="fas fa-arrow-left"></i> Sebelumnya
+                    </button>
+                    <button type="button" class="btn btn-primary" id="nextBtn">
+                        Selanjutnya <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Result Section -->
+            <div class="result-section" id="resultSection">
+                <div class="section-title">
+                    <h2>Hasil Tes Masuk</h2>
+                </div>
+                
+                <div class="result-content">
+                    <div id="resultMessage"></div>
+                    
+                    <div class="score-display" id="finalScore">0</div>
+                    
+                    <div class="result-message" id="resultText"></div>
+                    
+                    <div class="result-details">
+                        <h3>Detail Hasil</h3>
+                        <div class="detail-item">
+                            <span class="detail-label">Nama:</span>
+                            <span class="detail-value" id="resultName">-</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Bidang:</span>
+                            <span class="detail-value" id="resultField">-</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Skor Tes:</span>
+                            <span class="detail-value" id="resultScore">0/100</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Status:</span>
+                            <span class="detail-value" id="resultStatus">-</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Waktu Selesai:</span>
+                            <span class="detail-value" id="resultTime">-</span>
+                        </div>
+                    </div>
+                    
+                    <!-- WhatsApp & Certificate Section -->
+                    <div class="whatsapp-certificate-section" id="whatsappSection">
+                        <h3><i class="fab fa-whatsapp"></i> Bergabung dengan Grup Σpsilon</h3>
+                        <p>Selamat! Anda telah memenuhi syarat untuk bergabung dengan komunitas Σpsilon Official.</p>
+                        <p>Klik tombol di bawah ini untuk bergabung ke grup WhatsApp resmi:</p>
+                        
+                        <a href="https://chat.whatsapp.com/LKzqhIbTldKLug23Pn0j7t" target="_blank" class="whatsapp-link">
+                            <i class="fab fa-whatsapp"></i> Gabung Grup WhatsApp Σpsilon
+                        </a>
+                        
+                        <div class="certificate-info">
+                            <div class="certificate-icon">
+                                <i class="fas fa-certificate"></i>
+                            </div>
+                            <div class="certificate-text">
+                                <h4>Sertifikat Keanggotaan</h4>
+                                <p>Setelah bergabung di grup WhatsApp, Anda akan mendapatkan sertifikat keanggotaan Σpsilon Official yang akan dikirim ke email Anda dalam waktu 1x24 jam.</p>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 1.5rem;">
+                            <p><strong>Catatan:</strong> Pastikan untuk memperkenalkan diri di grup dan membaca rules grup.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="btn-container" style="margin-top: 2.5rem;">
+                        <button type="button" class="btn btn-secondary" id="retryBtn">
+                            <i class="fas fa-redo"></i> Ulangi Tes
+                        </button>
+                        <button type="button" class="btn btn-success" id="downloadBtn">
+                            <i class="fas fa-download"></i> Download Hasil
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Data peserta
+        let participantData = {};
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let timeLeft = 900; // 15 menit dalam detik
+        let timerInterval;
+        
+        // Bank soal (lebih dari 10 soal untuk diacak)
+        const questionBank = [
+            // Programming Questions
+            {
+                question: "Apa yang dimaksud dengan OOP (Object-Oriented Programming)?",
+                options: [
+                    "Paradigma pemrograman berdasarkan konsep 'objek'",
+                    "Metode pemrograman untuk optimasi kode",
+                    "Teknik debugging program",
+                    "Bahasa pemrograman khusus untuk web"
+                ],
+                correctAnswer: 0,
+                category: "Programming"
+            },
+            {
+                question: "Manakah yang bukan termasuk struktur data?",
+                options: [
+                    "Array",
+                    "Linked List",
+                    "Binary Tree",
+                    "Loop"
+                ],
+                correctAnswer: 3,
+                category: "Programming"
+            },
+            {
+                question: "Apa fungsi dari git commit?",
+                options: [
+                    "Menyimpan perubahan ke repository lokal",
+                    "Mengunggah kode ke repository remote",
+                    "Membuat branch baru",
+                    "Menggabungkan branch"
+                ],
+                correctAnswer: 0,
+                category: "Programming"
+            },
+            {
+                question: "Apa output dari kode berikut: console.log(2 + '2')?",
+                options: [
+                    "4",
+                    "22",
+                    "NaN",
+                    "Error"
+                ],
+                correctAnswer: 1,
+                category: "Programming"
+            },
+            
+            // Cyber Security Questions
+            {
+                question: "Apa yang dimaksud dengan phishing?",
+                options: [
+                    "Teknik menipu untuk mendapatkan informasi sensitif",
+                    "Jenis virus komputer",
+                    "Metode enkripsi data",
+                    "Teknik scanning jaringan"
+                ],
+                correctAnswer: 0,
+                category: "Cyber Security"
+            },
+            {
+                question: "Apa tujuan dari penetration testing?",
+                options: [
+                    "Mengidentifikasi kelemahan keamanan sistem",
+                    "Memperbaiki bug pada aplikasi",
+                    "Meningkatkan performa server",
+                    "Mengoptimalkan database"
+                ],
+                correctAnswer: 0,
+                category: "Cyber Security"
+            },
+            {
+                question: "Manakah yang termasuk serangan DDoS?",
+                options: [
+                    "Membanjiri server dengan lalu lintas palsu",
+                    "Mencuri data kartu kredit",
+                    "Menginfeksi komputer dengan ransomware",
+                    "Menyadap komunikasi jaringan"
+                ],
+                correctAnswer: 0,
+                category: "Cyber Security"
+            },
+            {
+                question: "Apa fungsi dari firewall?",
+                options: [
+                    "Mengontrol lalu lintas jaringan",
+                    "Mendeteksi virus",
+                    "Mengenkripsi data",
+                    "Menyimpan backup data"
+                ],
+                correctAnswer: 0,
+                category: "Cyber Security"
+            },
+            
+            // Web Development Questions
+            {
+                question: "Apa perbedaan utama antara HTTP dan HTTPS?",
+                options: [
+                    "HTTPS menggunakan enkripsi SSL/TLS",
+                    "HTTP lebih cepat daripada HTTPS",
+                    "HTTPS hanya untuk website e-commerce",
+                    "HTTP menggunakan port 80, HTTPS port 81"
+                ],
+                correctAnswer: 0,
+                category: "Web Development"
+            },
+            {
+                question: "Apa fungsi dari CSS?",
+                options: [
+                    "Mengatur tampilan dan format halaman web",
+                    "Menambahkan interaksi ke halaman web",
+                    "Menyimpan data di browser",
+                    "Mengelola server web"
+                ],
+                correctAnswer: 0,
+                category: "Web Development"
+            },
+            {
+                question: "Manakah yang bukan framework JavaScript?",
+                options: [
+                    "React",
+                    "Vue.js",
+                    "Angular",
+                    "Django"
+                ],
+                correctAnswer: 3,
+                category: "Web Development"
+            },
+            {
+                question: "Apa itu responsive web design?",
+                options: [
+                    "Desain website yang menyesuaikan dengan ukuran layar",
+                    "Website yang cepat loading",
+                    "Website dengan animasi yang banyak",
+                    "Website yang aman dari serangan"
+                ],
+                correctAnswer: 0,
+                category: "Web Development"
+            },
+            
+            // General IT Questions
+            {
+                question: "Apa kepanjangan dari API?",
+                options: [
+                    "Application Programming Interface",
+                    "Advanced Programming Instruction",
+                    "Application Process Integration",
+                    "Automated Programming Interface"
+                ],
+                correctAnswer: 0,
+                category: "General IT"
+            },
+            {
+                question: "Manakah yang termasuk database NoSQL?",
+                options: [
+                    "MongoDB",
+                    "MySQL",
+                    "PostgreSQL",
+                    "Oracle"
+                ],
+                correctAnswer: 0,
+                category: "General IT"
+            },
+            {
+                question: "Apa fungsi dari Docker?",
+                options: [
+                    "Containerization aplikasi",
+                    "Version control system",
+                    "Package manager untuk JavaScript",
+                    "Text editor untuk programming"
+                ],
+                correctAnswer: 0,
+                category: "General IT"
+            }
+        ];
+        
+        // Acak 10 soal dari bank soal
+        function getRandomQuestions() {
+            const shuffled = [...questionBank].sort(() => 0.5 - Math.random());
+            return shuffled.slice(0, 10);
+        }
+        
+        let selectedQuestions = getRandomQuestions();
+        
+        // Form submission
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simpan data peserta
+            participantData = {
+                name: document.getElementById('fullName').value,
+                email: document.getElementById('email').value,
+                whatsapp: document.getElementById('whatsapp').value,
+                education: document.getElementById('education').value,
+                field: document.querySelector('input[name="field"]:checked').value,
+                experience: document.getElementById('experience').value,
+                motivation: document.getElementById('motivation').value,
+                registrationDate: new Date().toLocaleString()
+            };
+            
+            // Inisialisasi jawaban user
+            userAnswers = new Array(selectedQuestions.length).fill(null);
+            
+            // Tampilkan section tes
+            document.getElementById('formSection').classList.remove('active');
+            document.getElementById('testSection').classList.add('active');
+            
+            // Mulai timer
+            startTimer();
+            
+            // Tampilkan soal pertama
+            showQuestion(currentQuestionIndex);
+        });
+        
+        // Fungsi untuk menampilkan soal
+        function showQuestion(index) {
+            const questionsContainer = document.getElementById('questionsContainer');
+            const question = selectedQuestions[index];
+            
+            // Update counter
+            document.getElementById('currentQuestion').textContent = index + 1;
+            
+            // Buat HTML untuk soal
+            let optionsHTML = '';
+            question.options.forEach((option, i) => {
+                const isSelected = userAnswers[index] === i;
+                optionsHTML += `
+                    <div class="option ${isSelected ? 'selected' : ''}" onclick="selectAnswer(${i})">
+                        <input type="radio" name="question${index}" id="option${index}_${i}" ${isSelected ? 'checked' : ''}>
+                        <span class="option-label">${String.fromCharCode(65 + i)}</span>
+                        <label for="option${index}_${i}">${option}</label>
+                    </div>
+                `;
+            });
+            
+            questionsContainer.innerHTML = `
+                <div class="question-card">
+                    <div class="question-number">${index + 1}</div>
+                    <div class="question-text">${question.question}</div>
+                    <div class="options-container">
+                        ${optionsHTML}
+                    </div>
+                </div>
+            `;
+            
+            // Update tombol navigasi
+            document.getElementById('prevBtn').style.display = index === 0 ? 'none' : 'flex';
+            document.getElementById('nextBtn').textContent = index === selectedQuestions.length - 1 ? 'Selesaikan Tes' : 'Selanjutnya';
+            document.getElementById('nextBtn').innerHTML = index === selectedQuestions.length - 1 
+                ? 'Selesaikan Tes <i class="fas fa-check"></i>' 
+                : 'Selanjutnya <i class="fas fa-arrow-right"></i>';
+        }
+        
+        // Fungsi untuk memilih jawaban
+        window.selectAnswer = function(answerIndex) {
+            userAnswers[currentQuestionIndex] = answerIndex;
+            showQuestion(currentQuestionIndex);
+        };
+        
+        // Navigasi soal
+        document.getElementById('prevBtn').addEventListener('click', function() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion(currentQuestionIndex);
+            }
+        });        
+        document.getElementById('nextBtn').addEventListener('click', function() {
+            if (currentQuestionIndex < selectedQuestions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion(currentQuestionIndex);
+            } else {
+                finishTest();
+            }
+        });
+        
+        // Timer
+        function startTimer() {
+            updateTimerDisplay();
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    finishTest();
+                }
+            }, 1000);
+        }
+        
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            const timerElement = document.getElementById('timeRemaining');
+            
+            timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            // Update warna timer berdasarkan sisa waktu
+            const timerContainer = document.getElementById('timer');
+            timerContainer.classList.remove('warning', 'danger');
+            
+            if (timeLeft <= 300) { // 5 menit tersisa
+                timerContainer.classList.add('warning');
+            }
+            
+            if (timeLeft <= 60) { // 1 menit tersisa
+                timerContainer.classList.add('danger');
+            }
+        }
+        
+        // Selesaikan tes
+        function finishTest() {
+            clearInterval(timerInterval);
+            
+            // Hitung skor
+            let score = 0;
+            selectedQuestions.forEach((question, index) => {
+                if (userAnswers[index] === question.correctAnswer) {
+                    score += 10;
+                }
+            });
+            
+            // Tentukan status
+            const passed = score >= 70;
+            
+            // Tampilkan hasil
+            document.getElementById('testSection').classList.remove('active');
+            document.getElementById('resultSection').classList.add('active');
+            
+            // Update data di hasil
+            document.getElementById('resultName').textContent = participantData.name;
+            document.getElementById('resultField').textContent = participantData.field;
+            document.getElementById('resultScore').textContent = `${score}/100`;
+            document.getElementById('resultStatus').textContent = passed ? "LULUS" : "TIDAK LULUS";
+            document.getElementById('resultStatus').style.color = passed ? "var(--success)" : "var(--primary-red)";
+            document.getElementById('resultTime').textContent = new Date().toLocaleString();
+            
+            // Tampilkan skor
+            document.getElementById('finalScore').textContent = score;
+            
+            // Tampilkan pesan hasil
+            const resultMessage = document.getElementById('resultMessage');
+            const resultText = document.getElementById('resultText');
+            
+            if (passed) {
+                resultMessage.innerHTML = `
+                    <div style="background-color: rgba(76, 175, 80, 0.1); padding: 1.5rem; border-radius: 10px; border-left: 5px solid var(--success);">
+                        <h3 style="color: var(--success); margin-bottom: 10px;"><i class="fas fa-check-circle"></i> SELAMAT! Anda LULUS Tes Masuk</h3>
+                        <p>Anda memenuhi syarat untuk bergabung dengan Σpsilon Official sebagai <strong>${participantData.field}</strong>.</p>
+                    </div>
+                `;
+                resultText.innerHTML = `<p>Skor Anda: <strong>${score}/100</strong> - Terima kasih telah mengikuti tes masuk Σpsilon!</p>`;
+                
+                // Tampilkan section WhatsApp
+                document.getElementById('whatsappSection').style.display = 'block';
+            } else {
+                resultMessage.innerHTML = `
+                    <div style="background-color: rgba(230, 57, 70, 0.1); padding: 1.5rem; border-radius: 10px; border-left: 5px solid var(--primary-red);">
+                        <h3 style="color: var(--primary-red); margin-bottom: 10px;"><i class="fas fa-times-circle"></i> Maaf, Anda BELUM LULUS</h3>
+                        <p>Skor Anda belum memenuhi syarat minimum (70/100) untuk bergabung sebagai <strong>${participantData.field}</strong>.</p>
+                    </div>
+                `;
+                resultText.innerHTML = `<p>Skor Anda: <strong>${score}/100</strong> - Silakan coba lagi dalam 30 hari ke depan.</p>`;
+                
+                // Sembunyikan section WhatsApp
+                document.getElementById('whatsappSection').style.display = 'none';
+            }
+            
+            // Simpan hasil ke localStorage
+            const resultData = {
+                participant: participantData,
+                score: score,
+                passed: passed,
+                testDate: new Date().toISOString(),
+                answers: userAnswers,
+                questions: selectedQuestions
+            };
+            
+            localStorage.setItem('epsilonTestResult', JSON.stringify(resultData));
+        }
+        
+        // Tombol ulangi tes
+        document.getElementById('retryBtn').addEventListener('click', function() {
+            // Reset data
+            currentQuestionIndex = 0;
+            userAnswers = new Array(selectedQuestions.length).fill(null);
+            timeLeft = 900;
+            selectedQuestions = getRandomQuestions(); // Acak soal baru
+            
+            // Tampilkan form lagi
+            document.getElementById('resultSection').classList.remove('active');
+            document.getElementById('formSection').classList.add('active');
+            
+            // Reset form
+            document.getElementById('registrationForm').reset();
+        });
+        
+        // Tombol download hasil
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            const resultData = JSON.parse(localStorage.getItem('epsilonTestResult'));
+            
+            // Buat konten untuk download
+            let content = `HASIL TES MASUK ΣPSILON OFFICIAL\n`;
+            content += `================================\n\n`;
+            content += `Nama: ${resultData.participant.name}\n`;
+            content += `Email: ${resultData.participant.email}\n`;
+            content += `WhatsApp: ${resultData.participant.whatsapp}\n`;
+            content += `Bidang: ${resultData.participant.field}\n`;
+            content += `Tanggal Tes: ${new Date(resultData.testDate).toLocaleString()}\n`;
+            content += `Skor: ${resultData.score}/100\n`;
+            content += `Status: ${resultData.passed ? 'LULUS' : 'TIDAK LULUS'}\n\n`;
+            content += `Link Grup WhatsApp: https://chat.whatsapp.com/LKzqhIbTldKLug23Pn0j7t\n`;
+            content += `Sertifikat akan dikirim ke email dalam 1x24 jam setelah bergabung di grup.\n\n`;
+            content += `Σpsilon Official - Teknologi untuk Masa Depan`;
+            
+            // Buat blob dan download
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Hasil_Tes_Σpsilon_${resultData.participant.name.replace(/\s+/g, '_')}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            // Tampilkan alert
+            alert('Hasil tes telah berhasil diunduh!');
+        });
+        
+        // Inisialisasi form
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cek apakah ada hasil tes sebelumnya
+            const savedResult = localStorage.getItem('epsilonTestResult');
+            if (savedResult) {
+                // Tampilkan tombol untuk melihat hasil sebelumnya
+                const resultData = JSON.parse(savedResult);
+                const continueBtn = document.createElement('button');
+                continueBtn.className = 'btn btn-whatsapp btn-full';
+                continueBtn.innerHTML = '<i class="fas fa-history"></i> Lihat Hasil Tes Sebelumnya';
+                continueBtn.style.marginTop = '1rem';
+                continueBtn.onclick = function() {
+                    // Langsung tampilkan hasil
+                    document.getElementById('formSection').classList.remove('active');
+                    document.getElementById('resultSection').classList.add('active');
+                    
+                    // Isi data hasil
+                    document.getElementById('resultName').textContent = resultData.participant.name;
+                    document.getElementById('resultField').textContent = resultData.participant.field;
+                    document.getElementById('resultScore').textContent = `${resultData.score}/100`;
+                    document.getElementById('resultStatus').textContent = resultData.passed ? "LULUS" : "TIDAK LULUS";
+                    document.getElementById('resultStatus').style.color = resultData.passed ? "var(--success)" : "var(--primary-red)";
+                    document.getElementById('resultTime').textContent = new Date(resultData.testDate).toLocaleString();
+                    document.getElementById('finalScore').textContent = resultData.score;
+                    
+                    // Tampilkan/sembunyikan WhatsApp section
+                    document.getElementById('whatsappSection').style.display = resultData.passed ? 'block' : 'none';
+                };
+                
+                document.querySelector('.form-section .btn-container').appendChild(continueBtn);
+            }
+        });
+    </script>
+</body>
+</html>
